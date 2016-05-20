@@ -1,0 +1,5 @@
+177 mediciones leidas.
+Temperatura promedio: 18.18 ºC.
+Máxima temperatura registrada: 27.00 ºC.
+Humedad promedio: 312304.23.
+Concentración promedio de CO2: 1385.97 PPM.
