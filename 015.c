@@ -17,7 +17,7 @@ int main()
     char    hora[8];
     int     col1, col2, col3, col4, cantidad;
     
-    datos       = fopen("downloads/mediciones.txt","r");
+    datos       = fopen("mediciones.txt","r");
     temperatura = 0;
     cantidad    = 0;
     humedad     = 0;
