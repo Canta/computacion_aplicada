@@ -8,20 +8,21 @@
 
 #include <stdio.h>
 
-int * get_casilleros_from_index( int index);
-int   is_completed( );
-int * get_cuadrante_from_index( int index);
-int * get_fila_from_index(int index);
-int * get_columna_from_index( int index );
+void get_casilleros_from_index( char * unicos, int index);
+char is_completed( );
+void get_cuadrante_from_index( char * cuadrante, int index);
+void get_fila_from_index( char * fila, int index);
+void get_columna_from_index( char * columna, int index );
 
 int sudoku[81];
 
 int main() 
 {
     FILE   * archivo;
-    int    * lista;
+    char   lista[9]    = {0};
     int    i1          = 0;
     int    i2          = 0;
+    int    i3          = 0;
     int    encontrados = 0;
     int    not_found   = 0;
     int    iteraciones = 0;
@@ -47,7 +48,15 @@ int main()
             
             if (sudoku[i1] == 0 )
             {
-                lista       = get_casilleros_from_index( i1 );
+                get_casilleros_from_index( lista, i1 );
+                /*
+                printf("\nlista: ");
+                for (i3 = 0; i3 < 9; i3++)
+                {
+                    printf( "%d ", lista[i3] );
+                }
+                printf("\n");
+                */
                 not_found   = 0;
                 encontrados = 0;
                 for (i2 = 0; i2 < 9 ; i2++) {
@@ -74,52 +83,53 @@ int main()
     return 0;
 }
 
-int * get_casilleros_from_index( int index ) 
+void get_casilleros_from_index( char * unicos, int index ) 
 {
     
-    int * cuadrante    = get_cuadrante_from_index( index );
-    int * fila         = get_fila_from_index( index );
-    int * columna      = get_columna_from_index( index );
-    int i              = 0;
-    int unicos[9];
-    int coso           = 0;
+    char cuadrante[9]   = {0};
+    char fila[9]        = {0};
+    char columna[9]     = {0};
+    int i               = 0;
+    int coso            = 0;
     
-    printf("loop unicos\n");
+    //printf("loop unicos\n");
+    
+    get_cuadrante_from_index( cuadrante, index );
+    get_fila_from_index( fila, index );
+    get_columna_from_index( columna, index );
     
     for ( i = 0; i < 9; i++) {
         unicos[i] = 0;
     } 
     
-    printf("loop gordo\n");
+    //printf("loop gordo\n");
     for ( i = 0; i < 9; i++) {
         
-        printf("loop cuadrantes[%d] (%d)\n", i,(int)&cuadrante[i]);
-        coso = (int)&cuadrante[i];
-        if ( sudoku[ coso ] > 0 ) {
-            unicos[ sudoku[ coso ] -1 ] = 1;
+        //printf("loop cuadrantes[%d] (%d)\n", i,cuadrante[i]);
+        coso = cuadrante[i];
+        if ( cuadrante[i] > 0 ) {
+            unicos[ cuadrante[i] -1 ] = 1;
         }
-        printf("loop filas[%d] (%d)\n", i,(int)&fila[i]);
+        //printf("loop filas[%d] (%d)\n", i,fila[i]);
         
-        coso = (int)&fila[i];
-        if ( sudoku[ coso ] > 0 ) {
-            unicos[ sudoku[ coso ] - 1 ] = 1;
+        coso = fila[i];
+        if ( fila[i] > 0 ) {
+            unicos[ fila[i] - 1 ] = 1;
         }
-        printf("loop columnas[%d] (%d)\n", i,(int)&columna[i]);
+        //printf("loop columnas[%d] (%d)\n", i,columna[i]);
         
-        coso = (int)&columna[i];
-        if ( sudoku[ coso ] > 0 ) {
-            unicos[ sudoku[ coso ] - 1 ] = 1;
+        coso = columna[i];
+        if ( columna[i] > 0 ) {
+            unicos[ columna[i] - 1 ] = 1;
         }
     }
     
-    return (int * ) *unicos;
 }
 
-int * get_fila_from_index(int index)
+void get_fila_from_index(char * fila, int index)
 {
     int i;
     int j;
-    int fila[9];
     
     if (index >= 0 && index <= 8)
     {
@@ -210,20 +220,18 @@ int * get_fila_from_index(int index)
             j++;       
         }
     }
-    
+    /*
     for (i=0; i < 9; i++)
     {
         printf("fila %d: %d\n", i, fila[i]);
     }
-    
-    return (int * ) *fila;
+    */
 }
 
-int * get_columna_from_index(int index)
+void get_columna_from_index(char * columna, int index)
 {
     int i;
     int j;
-    int columna[9];
     
     if (index == 0 
         || index == 9 
@@ -387,30 +395,28 @@ int * get_columna_from_index(int index)
         }
     }
     
+    /*
     for (i=0; i < 9; i++)
     {
-        printf("columna %d: %d\n", i, columna[i]);
+        printf("columna %d: %d\n", i, (int) columna[i]);
     }
-    
-    return (int * ) *columna;
+    */
 }
 
 
-int * get_cuadrante_from_index( index ) {
-    int cuadrante[9];
-    int i = 0;
+void get_cuadrante_from_index( char * cuadrante, int index ) {
+    char i = 0;
     
     for ( i = 0; i < 9; i++) {
         cuadrante[i] = 0;
     } 
     
-    return (int *) *cuadrante;
 }
 
-int is_completed() 
+char is_completed() 
 {
-    int ret = 1;
-    int i   = 0;
+    char ret = 1;
+    char i   = 0;
     
     for (i = 0; i < 81; i++)
     {
