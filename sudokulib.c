@@ -34,9 +34,6 @@ void get_casilleros_from_index( char * unicos, int index )
     char fila[9]        = {0};
     char columna[9]     = {0};
     int i               = 0;
-    int coso            = 0;
-    
-    //printf("loop unicos\n");
     
     get_cuadrante_from_index( cuadrante, index );
     get_fila_from_index( fila, index );
@@ -46,23 +43,38 @@ void get_casilleros_from_index( char * unicos, int index )
         unicos[i] = 0;
     } 
     
+    /*printf("Cuadrante:\n");
+    for ( i = 0; i < 9; i++) {
+        printf("%d ", cuadrante[i]);
+    } 
+
+    printf("\nFila:\n");
+    for ( i = 0; i < 9; i++) {
+        printf("%d ", fila[i]);
+    } 
+    
+    printf("\nColumna:\n");
+    for ( i = 0; i < 9; i++) {
+        printf("%d ", columna[i]);
+    } 
+    
+    printf("\n");
+    */
+
     //printf("loop gordo\n");
     for ( i = 0; i < 9; i++) {
         
         //printf("loop cuadrantes[%d] (%d)\n", i,cuadrante[i]);
-        coso = cuadrante[i];
         if ( cuadrante[i] > 0 ) {
             unicos[ cuadrante[i] -1 ] = 1;
         }
         //printf("loop filas[%d] (%d)\n", i,fila[i]);
         
-        coso = fila[i];
         if ( fila[i] > 0 ) {
             unicos[ fila[i] - 1 ] = 1;
         }
         //printf("loop columnas[%d] (%d)\n", i,columna[i]);
         
-        coso = columna[i];
         if ( columna[i] > 0 ) {
             unicos[ columna[i] - 1 ] = 1;
         }
