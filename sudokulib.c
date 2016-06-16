@@ -1,5 +1,5 @@
 /**
- * Header para librería de sudoku.
+ * Librería de sudoku.
  * 
  * @author  Daniel Cantarín
  * @author  Juan Miguel Lombardi Suzzi
