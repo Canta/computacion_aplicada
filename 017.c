@@ -17,16 +17,17 @@ int main ()
     float b[3]          = { 12, 12, 10 };
     float E[3][3]       = { {0} };
     float C[3]          = { 0, 0, 0 };
-    float X[2][3]       = { {0} };
+    float X1[3]         = { 0 };
+    float X2[3]         = { 0 };
     float tolerancia    = 0.001;
     
     char i;
     char j;
-    printf("Matriz inicial:\n");
+    printf("Matriz inicial (\"E\"):\n");
     for (i=0; i < N; i++)
     {
         C[i]    =   b[i] / A[i][i];
-        X[0][i] =   1;
+        X1[i]   =   1;
         for(j=0; j < N; j++) 
         {
             if (i == j) 
@@ -43,34 +44,49 @@ int main ()
     }
     printf("-------------------\n");
     
-    float cota = cota_vector(X[0], X[1], N);
-    printf("cota: %lf\n", cota); 
+    printf("\nMi flautagorquio de ptolomeo (\"C\") es el siguiente:\n");
+    for (i = 0; i < N; i++)
+    {
+        printf("C[%d]: %lf\n", i, C[i]);
+    }
+    printf("-------------------\n");
+    
+    float cota = cota_vector(X1, X2, N);
+    //printf("cota: %lf\n", cota); 
     while ( cota > tolerancia )
     {
-        multiplicar(E, X[0], N, X[1]);
-        sumar_vectores(X[1], C, N, X[1]);
-        cota = cota_vector(X[0], X[1], N);
-        printf("cota: %lf\n", cota);
+        multiplicar(E, X1, N, X2);
+        sumar_vectores(X2, C, N, X2);
+        cota = cota_vector(X1, X2, N);
+        //printf("cota: %lf\n", cota);
+        //for (i = 0; i < N; i++)
+        //{
+        //    printf("X1[%d]: %lf ; X2[%d]: %lf.\n", i, X1[i], i, X2[i]);
+        //}
         for(i =0; i < N; i++) {
-            X[0][i] = X[1][i];
+            X1[i] = X2[i];
         }
-        
     }
     
     printf("\nMi vector final es el siguiente:\n");
     for (i = 0; i < N; i++)
     {
-        printf("X[%d]: %lf\n", i, X[1][i]);
+        printf("X[%d]: %lf\n", i, X2[i]);
     }
 
 
     
-    multiplicar(A, X[1], N, X[0]);
+    multiplicar(A, X2, N, X1);
     printf("\nMultiplicado por la matriz inicial, me dá esto:\n");
     for (i = 0; i < N; i++)
     {
-        printf("X[%d]: %lf\n", i, X[0][i]);
+        printf("X[%d]: %lf\n", i, X1[i]);
     }
     
+    printf("\nMe tendría que dar algo cercano a esto:\n");
+    for (i = 0; i < N; i++)
+    {
+        printf("b[%d]: %lf\n", i, b[i]);
+    }
     return 0;
 }

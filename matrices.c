@@ -20,7 +20,7 @@ float promedio( float * vector , int tamanio)
     return prom;
 }
 
-void multiplicar( float * matriz[], float * vector , int tamanio, float * resultado) 
+void multiplicar( float * matriz, float * vector , int tamanio, float * resultado) 
 {
     int i;
     int j;
@@ -34,16 +34,17 @@ void multiplicar( float * matriz[], float * vector , int tamanio, float * result
     
     for (i = 0; i < tamanio; i++)
     {
+        matriz2 = &matriz[i * 3];
         for(j = 0; j < tamanio; j++) 
         {
-            matriz2 = &matriz[i];
+            //printf("matriz[%d][%d] = %lf\n", i, j, matriz2[j]);
             resultado[i] = resultado[i] + (matriz2[j] * vector[j]);
         }
     }
 }
 
 
-void dividir( float * matriz[], float * vector , int tamanio, float * resultado) 
+void dividir( float * matriz, float * vector , int tamanio, float * resultado) 
 {
     int i;
     int j;
