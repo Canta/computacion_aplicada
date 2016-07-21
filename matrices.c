@@ -34,7 +34,7 @@ void multiplicar( float * matriz, float * vector , int tamanio, float * resultad
     
     for (i = 0; i < tamanio; i++)
     {
-        matriz2 = &matriz[i * 3];
+        matriz2 = &matriz[i * tamanio];
         for(j = 0; j < tamanio; j++) 
         {
             //printf("matriz[%d][%d] = %lf\n", i, j, matriz2[j]);
