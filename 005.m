@@ -31,8 +31,10 @@ function salida = punto_fijo_3( f, x0 , n)
         x0 = x1;
         vecx(i) = i;
         vecy(i) = x0;
+        plot(vecx, vecy);
+        pause(0.25)
     end
-    plot(vecx, vecy);
+    
     
     salida = x1;
 endfunction
