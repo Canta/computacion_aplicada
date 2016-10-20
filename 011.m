@@ -32,13 +32,22 @@ if size(tiempo)(2) > 0
   i = 1;
   X = [];
   Y = [];
-  t = 1;
+  t = 0;
   #limite
   
   while t < limite
     
-    Y(t) = ( ( max(i) - min(i) / (limite) ) * t ) + min(i);
-    X(t) = t;
+    if i > 2
+      last = tiempo(i-1) + tiempo(i);
+    elseif i > 1
+      last = tiempo(i);
+    else
+      last = 0;
+    end
+    
+    dV     = max(i) - min(i);
+    Y(t+1) = ( ( dV / tiempo(i) ) * (t - last) ) + min(i);
+    X(t+1) = t;
     
     if (t + 1 == limite) && size(tiempo)(2) > i
       i      = i + 1;
